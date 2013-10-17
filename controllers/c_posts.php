@@ -8,7 +8,8 @@ class posts_controller extends base_controller {
 
 
 	########### //View Posts ###########
-	public function view($view_posts = NULL, $post = NULL){
+	public function view($view_posts = NULL, $post = NULL, $user = NULL){
+	
 	
 		if(isset($post)){
 		
@@ -16,17 +17,36 @@ class posts_controller extends base_controller {
 				$this->template->content = View::instance('v_posts_view_single');
 				$this->template->title   = "View Post";
 				
-				//Query the posts table for a single row
-				$q = "SELECT * FROM posts WHERE id = $post";
-								
+				//Query the posts table and Join with the users table for a single row
+				$q = "SELECT * FROM posts LEFT JOIN users ON (posts.created_by = users.user_id) WHERE id = $post";
+												
 				//Query the DB for all posts and put into array	        		
 				$view_posts = DB::instance(DB_NAME)->select_rows($q);
 	
 				$this->template->content->view_posts = $view_posts;
-				
+								
 				//Display view
 				echo $this->template;		
 
+
+			}elseif(isset($user)){
+			
+				//Define view parameters
+				$this->template->content = View::instance('v_posts_view_user');
+				$this->template->title   = "View User Posts";
+				
+				//Query the posts table for a single row
+				$q = "SELECT * FROM posts WHERE created_by = $user";
+				
+				//Query the DB for all posts that belong to the specified user and put into array	        		
+				$view_posts = DB::instance(DB_NAME)->select_rows($q);
+				
+				$this->template->content->view_posts = $view_posts;
+								
+				//Display view
+				echo $this->template;
+
+			
 			}else{
 			
 				//Define view parameters
