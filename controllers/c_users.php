@@ -20,29 +20,47 @@ class users_controller extends base_controller {
 	
 	
 	########### //Process Signup Function ###########
-	public function p_signup(){
+	public function p_signup($error = NULL){
 	
-		// Specify created and modified time that will be posted to the DB.
-		$_POST['created']  = Time::now();
-		$_POST['modified'] = Time::now();
+		//Sanitize _POST
+		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
-		//Create a hashed password
-		$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+		//Query the DB for a email / password and set it as a variable.
+		$q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
+	
+		//Execute query against DB
+		$exsitingUsers = DB::instance(DB_NAME)->select_rows($q);
+	
+	
+		//Check to determine if the user exsits.
+		if(!empty($exsitingUsers)){
 		
-		//Create a hashed token
-		 $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+			//Redirect to the login page
+			Router::redirect('/users/login/error/exists');
 		
+				//If is doesn't exsit, continue with processing signup.
+				}else{
+				
+					// Specify created and modified time that will be posted to the DB.
+					$_POST['created']  = Time::now();
+					$_POST['modified'] = Time::now();
+					
+					//Create a hashed password
+					$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+					
+					// Process from _POST parameters and insert them into the DB. 
+					$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
+										
+					//Redirect to user login page after user has been created in the DB
+					Router::redirect('/users/login/success');
 		
-        // Process from _POST parameters and insert them into the DB. 
-        $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
-        		
-		//Redirect to user Profile Page after user has been created in the DB
-        Router::redirect('/users/login');
-	}
+			}// End if 
+		
+	}//End of function
 	
 	
 	########### //Login function ###########
-	public function login($error = NULL){
+	public function login($error = NULL, $exists = NULL, $success = NULL){
 			
 		//Check to see if the user is logged in, if they are, redirect them to the profile page
 		if($this->user) {
@@ -54,9 +72,11 @@ class users_controller extends base_controller {
 			//Define view parameters
 			$this->template->content = View::instance('v_users_login');
 			$this->template->title   = "Login";
-			
+						
 			//Pass error variable to the view
 			$this->template->content->error = $error;
+			$this->template->content->exists = $exists;
+			$this->template->content->success = $success;
 			
 			//Display view
 			echo $this->template;		
