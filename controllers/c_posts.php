@@ -10,7 +10,7 @@ class posts_controller extends base_controller {
 	########### //View Posts ###########
 	public function view($view_posts = NULL){
 		
-		//Define view paramters
+		//Define view parameters
 		$this->template->content = View::instance('v_posts_view_all');
 		$this->template->title   = "View All Posts";
 		
@@ -21,7 +21,7 @@ class posts_controller extends base_controller {
                                 		
 		//Display view
 		echo $this->template;		
-	}
+	}//End of fuction
 	
 	########### //Create Posts ###########
 	public function create(){
@@ -38,6 +38,7 @@ class posts_controller extends base_controller {
 			
 			//Display the template
 			echo $this->template;
+		
 		}//End of else
 		
 	}//End of function
@@ -56,19 +57,18 @@ class posts_controller extends base_controller {
 		
 		$_POST['created_by'] = $this->user->user_id;
 		
-		//echo '<pre>';
-        //print_r($_POST);
-        //echo '</pre>';
 				
 		// Process from _POST parameters and insert them into the DB. 
 		$user_id = DB::instance(DB_NAME)->insert('posts', $_POST);
+		
+		//Set success message for the view 
+		
        
 		Router::redirect('/posts/view/success');
 		
 	}// End of Function
 	
-	
-	
+		
 	########### //Edit Posts ###########
 	public function edit(){
 		
@@ -77,11 +77,40 @@ class posts_controller extends base_controller {
 
 
 
-	########### //Delete Posts ###########
-	public function delete(){
+	########### //Delete Post ###########
+	public function delete($post = NULL){
+	
+		//Determine if the user is logged in
+		if(!$this->user) {
+			Router::redirect('/users/login?no-permission');
+		}
+			
+		//Specify the current logged in users ID.  Required to compare if the user created the post.	
+		$user = $this->user->user_id;
 		
+		//Query to determine which user the post and it belongs to the logged in user.
+		$q = "select * from posts where id = $post and created_by = $user";	
+		$posts = DB::instance(DB_NAME)->select_rows($q);
+									
+		//Determin if the post belongs to the user who created it
+		if(!empty($posts)){
+									
+			//Delete the post.
+			DB::instance(DB_NAME)->delete('posts', "WHERE id = '$post'");
+			
+			//Redirect to view posts with a success message.
+			Router::redirect('/posts/view?delete-success');
+			
+			
+			//The query will be empty if the user did not create the post, return error.		
+			}else{
+			
+				//Redirect to view posts with an error
+				Router::redirect('/posts/view?delete-error');
+			
+				}//end of else			
 		
-	}
+		}//End of function
 	
 	
 	
