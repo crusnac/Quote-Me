@@ -36,7 +36,7 @@ class users_controller extends base_controller {
 		if(!empty($exsitingUsers)){
 		
 			//Redirect to the login page
-			Router::redirect('/users/login/error/exists');
+			Router::redirect('/users/login/?user-exists');
 		
 				//If is doesn't exsit, continue with processing signup.
 				}else{
@@ -52,7 +52,7 @@ class users_controller extends base_controller {
 					$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
 										
 					//Redirect to user login page after user has been created in the DB
-					Router::redirect('/users/login/success');
+					Router::redirect('/users/login/?user-created');
 		
 			}// End if 
 		
@@ -105,7 +105,7 @@ class users_controller extends base_controller {
 
 		if($token == "") {
 			// Redirect to allow user to enter in new credentials and specify an error.
-			Router::redirect("/users/login/error"); 
+			Router::redirect("/users/login/?login-error"); 
         
         	// Successfull Login  
     		} else {
