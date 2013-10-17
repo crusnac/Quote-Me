@@ -25,6 +25,10 @@ class base_controller {
 		# So we can use $user in views			
 			$this->template->set_global('user', $this->user);
 			
+		#number of total posts
+			$total_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts');
+			$this->template->total_number_of_posts = $total_number_of_posts = count($total_posts);
+						
 	}
 	
 } # eoc
