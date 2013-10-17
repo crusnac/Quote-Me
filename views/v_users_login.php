@@ -8,8 +8,11 @@
     <input type='password' name='password'>
     <br><br>
 
+
+	
+
     <?php 
-    if(isset($error)): ?>
+    if(isset($_GET["notice"])): ?>
         <div class='error'>
         Error;
         </div>
@@ -17,14 +20,16 @@
     <?php endif; ?> 
     
     <?php 
-		if(isset($exists)): ?>
+		if(isset($_GET["exists"])): ?>
         <div class='notice'>
             That email already exists.  Please try again.
         </div>
         <br>
     <?php endif; ?> 
     
-    <?php if(isset($success)): ?>
+        <?php 
+
+    if(isset($_GET["success"])): ?>
         <div class='success'>
             Success!
         </div>
@@ -33,7 +38,10 @@
     
     <input type='submit' value='Log in'>
     
+    <?php
+    foreach($_GET as $key => $value)
+        echo $key . " : " . $value;
+	?>
     
-
 </form>
 
