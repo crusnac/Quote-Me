@@ -38,62 +38,80 @@
 	
 </head>
 
-<body>	
+<!-- Wrap all page content here -->
+    <div id="wrap">
 
-	<div class="container">
-	
-	<div class="header">
-	
-		
-        <ul class="nav nav-pills pull-right">
-        
-                <li><a href='/'><i class="icon-home"></i></a></li>
-
-        
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+			<a class="navbar-brand" href="#"><img src="/inc/images/logo.png"></a>
+          </div>
+          
+          
+          <div class="collapse navbar-collapse pull-right">
+            <ul class="nav navbar-nav">
         <li><a href="/posts/view/"><span class="badge"> <?php echo $total_number_of_posts; ?> <i class="icon-comment"></i></span> </a></li>
-        
-        
-
-        <!-- Menu for users who are logged in -->
+        	<!-- Menu for users who are logged in -->
         <?php if($user): ?>
-			
-			
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					<i class="icon-user"></i> <?php echo $user->first_name; ?> <?php echo $user->last_name; ?> <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><i class="icon-angle-right"></i> View Profile</a></li>
-						<li><a href="#"><i class="icon-angle-right"></i> Edit Profile</a></li>
-						<li><a href="#"><i class="icon-angle-right"></i> View myTwits</a></li>
+        
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $user->first_name; ?> <?php echo $user->last_name; ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  		<li><a href="/users/profile">View my Profile</a></li>
+                  		<li><a href="#">Edit my Profile</a></li>
+                  		<li><a href="#">View my Quotes</a></li>
+						<li class="divider"></li>
+							<li><a href="/posts/create/"><i class="icon-comment"></i> Submit New Quote</a></li>
 							<li class="divider"></li>
-						<li><a href="#"><i class="icon-comment"></i> New twit</a></li>
-							<li class="divider"></li>
-						<li><a href="/users/logout"><i class="icon-signout"></i> Sign Out</a></li>
-
-					</ul>
-			</li>
-			
-			
-			
+							<li><a href="/users/logout"><i class="icon-signout"></i> Sign Out</a></li>                
+				  </ul>
+				  </li>
+				  
+				  <!-- Menu options for users who are not logged in -->
         <!-- Menu options for users who are not logged in -->
         <?php else: ?>
 
             <li><a href='/users/signup'><i class="icon-user"></i> Register</a></li>
             <li><a href='/users/login'><i class="icon-lock"></i> Sign In</a></li>
 
-        <?php endif; ?>        
-        </ul>
-        
-        
-        
-        <h3 class="text-muted">Chat Box</h3>
+        <?php endif; ?>  
+				  
+				  
+				  
+				  
+				  
+            </ul>
+          </div>
+          
+          
+          
+         
+        </div>
       </div>
 
-
-	<?php if(isset($content)) echo $content; ?>
+      <!-- Begin page content -->
+      <div class="container content">
+        
+        <?php if(isset($content)) echo $content; ?>
 
 	<?php if(isset($client_files_body)) echo $client_files_body; ?>
-	
-	</div>
-</body>
-</html>
+        
+        
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+      </div>
+    </div>
+
+  </body></html>
