@@ -14,7 +14,7 @@ If you want a different default time format for this app, set it below
 */
 
 # What is the name of this app?
-	define('APP_NAME', 'twittr');  
+	define('APP_NAME', 'QUOTE Me');  
 	
 	error_reporting(E_ALL);
 ini_set('display_errors', '1');
