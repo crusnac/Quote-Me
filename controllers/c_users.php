@@ -20,18 +20,32 @@ class users_controller extends base_controller {
 	
 	
 	########### //Process Signup Function ###########
-	public function p_signup($error = NULL){
+	public function p_signup(){
 	
 		//Sanitize _POST
 		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+		
+		//Check to make sure all form values are filled in.
+		foreach($_POST as $key => $value){ 
+			if((!isSet($value)) || (!$value) || ($value = "")) { 
+				   	Router::redirect('/users/signup/?partial-registration');
+                 } 
+             } 		
+		
+		//Do some error checking gainst the email to make sure it's a valid email construct.
+		$email = $_POST['email'];
+		
+		if($email == '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			Router::redirect('/users/signup/?email-error');
+		}
+		
 		
 		//Query the DB for a email / password and set it as a variable.
 		$q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
 	
 		//Execute query against DB
 		$exsitingUsers = DB::instance(DB_NAME)->select_rows($q);
-	
-	
+		
 		//Check to determine if the user exsits.
 		if(!empty($exsitingUsers)){
 		
@@ -44,6 +58,9 @@ class users_controller extends base_controller {
 					// Specify created and modified time that will be posted to the DB.
 					$_POST['created']  = Time::now();
 					$_POST['modified'] = Time::now();
+					
+					//Create an encrypted token via their email address and a random string
+					$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
 					
 					//Create a hashed password
 					$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
@@ -121,7 +138,7 @@ class users_controller extends base_controller {
 	        	setcookie("token", $token, strtotime('+1 year'), '/');
 
 				// Redirect them to the main page - this should be the main login page.
-	        	Router::redirect("/");
+			Router::redirect("/users/profile?login-success"); 
 		
 			} // End of else	
 		
@@ -130,7 +147,7 @@ class users_controller extends base_controller {
 		
 	
 		########### //Profile function ###########
-		public function profile(){
+		public function profile($user = NULL){
 				
 			//Check to see if a user is logged in, if not - redirect to login page.
 			if(!$this->user) {
@@ -141,6 +158,16 @@ class users_controller extends base_controller {
 				//Define view parameters
 				$this->template->content = View::instance('v_users_profile');
 				$this->template->title = $this->user->first_name .' ' . $this->user->last_name. " | Profile";
+				
+				$user_id = $this->user->user_id;
+												
+				//Query the DB for a email / password and set it as a variable.
+				$q = "SELECT * FROM users WHERE user_id = $user_id"; 
+	
+				//Execute query against DB
+				$user = DB::instance(DB_NAME)->select_rows($q);
+				
+				$this->template->content->user = $user;
 
 				//Display template
 				echo $this->template;
@@ -149,6 +176,73 @@ class users_controller extends base_controller {
 			
 		}//End of function
 		
+
+
+		########### //Update Profile function ###########
+		public function p_profile(){
+		
+			//Sanitize _POST
+			$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+			
+			//Check to make sure all form values are filled in.
+			foreach($_POST as $key => $value){ 
+			if((!isSet($value)) || (!$value) || ($value = "")) { 
+				Router::redirect('/users/profile/?partial-form');
+				
+				} 
+			}//End for Each
+			 									
+			$currentUser = $this->user->user_id;
+
+			$q = "SELECT email FROM users WHERE user_id = $currentUser";
+			
+			$_POST['email'] = DB::instance(DB_NAME)->select_field($q);
+								
+			// Specify created and modified time that will be posted to the DB.
+			$_POST['modified'] = Time::now();
+						
+			// Process from _POST parameters and updated them into the DB. 
+			$user_id = DB::instance(DB_NAME)->update('users', $_POST, "WHERE user_id = $currentUser");
+								
+			//Redirect to user login page after user has been created in the DB
+			Router::redirect('/users/profile/?profile-updated');
+	
+			
+		}// End of function
+		
+		
+		########### //Update Profile Password function ###########
+		public function p_profile_password(){
+			
+			//Sanitize _POST
+			$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+			
+			//Check to make sure the password is not empty
+			if((empty($_POST['password']))) { 
+				Router::redirect('/users/profile/?empty-password');
+				} 
+
+			
+			//Check to make sure the password match
+			if(isset($_POST['password'], $_POST['password_check'])) {
+				if($_POST['password'] != $_POST['password_check']){
+					
+					Router::redirect('/users/profile/?password-match');
+				}
+			}
+			
+			$currentUser = $this->user->user_id;
+			$newpassword = sha1(PASSWORD_SALT.$_POST['password']);
+			$data    = Array('password' => $newpassword);
+
+			DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = $currentUser");
+			
+			
+			Router::redirect('/users/profile/?password-updated');
+			
+			
+			
+		}// End of Function		
 		
 		
 		########### //Logout function ###########
