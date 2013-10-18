@@ -54,7 +54,7 @@ class posts_controller extends base_controller {
 				$this->template->title   = "View All Posts";
 		
 				//Query the DB for all posts and put into array	        		
-				$view_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts');
+				$view_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts LEFT JOIN users ON posts.created_by = users.user_id GROUP BY posts.id ORDER BY posts.id DESC');
         
 				$this->template->content->view_posts = $view_posts;
                                 		
@@ -104,7 +104,7 @@ class posts_controller extends base_controller {
 		$user_id = DB::instance(DB_NAME)->insert('posts', $_POST);
 		
 		//Set success message for the view 
-		Router::redirect('/posts/view/?create-successfull');
+		Router::redirect('/posts/view/?create-successful');
 		
 	}// End of Function
 	
