@@ -1,144 +1,88 @@
-/* Space out content a bit */
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: left;
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+  
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+body {
+	background: #fff url('../images/bg.gif') no-repeat top left; 
+	background-attachment:fixed;
 }
 
-.small {
-	font-size: 80%;
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }
 
-.login-title, .front-page-form-left {
-	padding-right: 42px;
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.content {margin-top: 100px;}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h4 a:hover {
+	text-decoration: none;
+	opacity: 0.5;
+}
+
+.nav {
 	
-}
-.front-page-form-right {
-	padding-left: 42px;
+	margin-top: 40px;
 }
 
+.alert {text-align: center;}
 
-.front-page-form .form-group {
-}
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.modal-header {
+	background: #2C3E50;
+	color: #fff;
 }
+.modal-content, .modal-footer {background-color: #ECF0F1;}
 
-/* Customize container */
-@media (min-width: 768px) {
+
+.close {color: #fff;}
+
+.close:hover {color: #f1f1f1;}
+
+
+@media (min-width: 960px) {
   .container {
     max-width: 960px;
   }
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+
+#wrap > .container {
+  padding: 60px 15px 0;
 }
 
 
-.jumbotron label{
-	font-size: 70%;
-	margin-bottom: 0px;
-	
+
+.container .credit {
+  margin: 20px 0;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-/* Signin-Form */
-
-
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.front-page {margin-left: 0px; padding-left: 0px}
-
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  font-size: 16px;
-  height: auto;
-  padding: 10px;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="text"] {
-  margin-bottom: -1px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+code {
+  font-size: 80%;
 }
