@@ -13,15 +13,30 @@
 		<?php foreach ($view_posts as $post): ?>
 		
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-10">
 				<h3><i class="icon-comment"></i> <?php echo $post['title']; ?></h3>
 			</div>
 			<?php if($user): //Check if the user is loggged in...?>
 				<?php if($user->user_id == $post['created_by']): //See if the post belongs to the logged in user...?>
-				<div class="col-md-6">
+				<div class="col-md-2">
 					<div class="pull-right">
-						<a href="/posts/edit/<?php echo $post['id']; ?>" type="button" style="margin-top: 15px;" class="btn btn-primary"><i class="icon-edit"></i> Edit Post</a>
-						<a href="#delete" data-toggle="modal" type="button" style="margin-top: 15px;" class="btn btn-danger"><i class="icon-ban-circle"></i> Delete Post</a>
+					
+					<!-- Split button -->
+						<div class="btn-group">
+						  <button type="button" class="btn btn-primary"><i class="icon-cog"></i> Action</button>
+						  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="/posts/edit/<?php echo $post['id']; ?>"><i class="icon-edit"></i> Edit Quote</a></li>
+						    <li><a href="#delete" data-toggle="modal" ><i class="icon-ban-circle"></i> Delete Quote</a></li>
+						  </ul>
+						</div>
+					
+					
+					
+					
+						
 
 					</div>
 				</div>
@@ -41,7 +56,6 @@
 	</ul>
 	<div class="panel-footer"></div>
 </div>
-
 
 <div class="modal fade" id="delete">
   <div class="modal-dialog">
