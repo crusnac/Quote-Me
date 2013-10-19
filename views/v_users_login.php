@@ -19,6 +19,13 @@
 </div>
 <?php endif; ?>
 
+<?php if(isset($_GET['password-updated'])): ?>
+<div class="alert alert-success fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong><i class="icon-warning-sign"></i> Your Password has been updated!</strong>  Login to continue. 
+</div>
+<?php endif; ?>
+
 
 
 
