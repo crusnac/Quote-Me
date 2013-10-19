@@ -94,6 +94,15 @@ class posts_controller extends base_controller {
 		//Sanitize all inputs
 		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
+		//Validate that something has been entered.
+		$title = $_POST['title'];
+		$body  = $_POST['body'];
+		
+		if($title == '' || $body == '') {
+			Router::redirect('/posts/view/?empty-post');
+		}
+		
+		
 		// Specify created and modified time that will be posted to the DB.
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
@@ -168,6 +177,14 @@ class posts_controller extends base_controller {
 		
 				
 		if(!empty($posts)){
+		
+				//Validate that something has been entered.
+				$title = $_POST['title'];
+				$body  = $_POST['body'];
+				
+				if($title == '' || $body == '') {
+					Router::redirect('/posts/view/posts/'.$post.'/?empty-post');
+				}
 	
 				//Sanitize all inputs
 				$_POST = DB::instance(DB_NAME)->sanitize($_POST);
