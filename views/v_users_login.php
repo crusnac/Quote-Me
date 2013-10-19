@@ -10,6 +10,12 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <strong><i class="icon-warning-sign"></i> That user already exists! </strong>  You can login using your existing account or <a class="alert-link" href="/users/signup/">sign up</a> as a new user.
 </div>
+
+<div class="alert alert-warning fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong><i class="icon-warning-sign"></i> Reset your Password! </strong>  If you forgot your password, you can <a class="alert-link" href="/password/reset/">reset</a> it.
+</div>
+
 <?php endif; ?>
 
 <?php if(isset($_GET['user-created'])): ?>
