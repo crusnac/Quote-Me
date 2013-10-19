@@ -233,13 +233,11 @@ class users_controller extends base_controller {
 			
 			$currentUser = $this->user->user_id;
 			$newpassword = sha1(PASSWORD_SALT.$_POST['password']);
-			$data    = Array('password' => $newpassword);
+			$data = Array('password' => $newpassword);
 
 			DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = $currentUser");
 			
-			
 			Router::redirect('/users/profile/?password-updated');
-			
 			
 			
 		}// End of Function		
