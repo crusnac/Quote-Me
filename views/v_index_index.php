@@ -2,7 +2,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Hello!</h1>
-    <p><strong>Welcome to <?=APP_NAME?>!</strong>  <?=APP_NAME?> is a simple microblogging platform. If you already have an account, please login.  If not,  register with us.  If you are not interested in either, search below to see what our users are saying.</p>
+    <p><strong>Welcome to <?=APP_NAME?>.</strong>  <?=APP_NAME?> is a simple micro-blogging platform. If you already have an account, please login.  If not,  register with us.  If you are not interested in either, search below to see what our users are saying.</p>
     <p>
     	<a data-toggle="modal" href="#login" class="btn btn-primary"><i class="icon-lock"></i> Sign In</a> 
 		<a data-toggle="modal" class="btn btn-success" href="#register"><i class="icon-user"></i> Register</a>
@@ -10,6 +10,16 @@
 
   </div>
 </div>
+
+<div class="well">
+  <div class="container">
+  	<form method="post" class="form-inline" action="/search/">
+  		<input type="q" class="form-control input-lg" placeholder="Search Quotes....">
+  	</form>
+  
+  </div>
+</div>
+  
 
 
 
