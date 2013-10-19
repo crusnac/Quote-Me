@@ -23,7 +23,7 @@
 
 
 
-<div class="modal" id="login">
+<div class="modal fade" id="login">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -55,7 +55,7 @@
 
 
 
-<div class="modal" id="register">
+<div class="modal fade" id="register">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
