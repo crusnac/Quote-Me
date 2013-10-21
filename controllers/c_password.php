@@ -11,10 +11,9 @@ class password_controller extends base_controller {
 	public function reset(){
 	
 		//Check to see if the user is logged in.
-		if($this->user) {
-				Router::redirect('/users/profile');
-				
-		}
+			if($this->user) {
+					Router::redirect('/users/profile');
+			}
 	
 		//Define view paramters
 		$this->template->content = View::instance('v_password_reset');
@@ -29,9 +28,9 @@ class password_controller extends base_controller {
 	public function p_reset(){
 	
 		//Check to see if the user is logged in.
-		if($this->user) {
-				Router::redirect('/users/profile');	
-		}
+			if($this->user) {
+					Router::redirect('/users/profile');	
+			}
 	
 		//Sanitize _POST
 		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
@@ -40,9 +39,9 @@ class password_controller extends base_controller {
 		//Do some error checking gainst the email to make sure it's a valid email construct.
 		$email = $_POST['email'];
 		
-		if($email == '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			Router::redirect('/password/reset/?email-error');
-		}
+			if($email == '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				Router::redirect('/password/reset/?email-error');
+			}
 		
 		//Query the DB for a email / password and set it as a variable.
 		$q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
@@ -51,30 +50,30 @@ class password_controller extends base_controller {
 		$exsitingUsers = DB::instance(DB_NAME)->select_rows($q);
 		
 		//Check to determine if the user exsits.
-		if(empty($exsitingUsers)){
-		
-			//Redirect to the login page
-			Router::redirect('/password/reset/?user-does-no-exists');
-		
-				//If is doesn't exsit, continue with processing signup.
-				}else{
-				
-					//Create an encrypted token via their email address and a random string
-					$passwordToken = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
-					
-					//Specify what we are updating = the token
-					$data = Array("password_token" => $passwordToken);
+			if(empty($exsitingUsers)){
 			
-					//Update the with then new token
-					DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
+				//Redirect to the login page
+				Router::redirect('/password/reset/?user-does-no-exists');
+			
+					//If is doesn't exsit, continue with processing signup.
+					}else{
 					
-					///ADD EMAIL new TOKEN Functionality!////
-					
-															
-					//Redirect to user login page after user has been created in the DB
-					Router::redirect('/password/reset/?password-reset');
-							
-			}// End if 
+						//Create an encrypted token via their email address and a random string
+						$passwordToken = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
+						
+						//Specify what we are updating = the token
+						$data = Array("password_token" => $passwordToken);
+				
+						//Update the with then new token
+						DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
+						
+						///ADD EMAIL new TOKEN Functionality!////
+						
+																
+						//Redirect to user login page after user has been created in the DB
+						Router::redirect('/password/reset/?password-reset');
+								
+				}// End if 
 	
 	}// End of Function
 	
@@ -86,26 +85,27 @@ class password_controller extends base_controller {
 		$token_q = DB::instance(DB_NAME)->select_rows($q);		
 								
 		//Check to make sure a token has been passed
-		if(!$token || empty($token_q)){
+			if(!$token || empty($token_q)){
+			
+					//Define view paramters
+					$this->template->content = View::instance('v_password_set_invalid');
+					$this->template->title   = "Please provide a token";
+				
+					//Display view
+					echo $this->template;
+	
+			}else{
 		
 				//Define view paramters
-				$this->template->content = View::instance('v_password_set_invalid');
-				$this->template->title   = "Please provide a token";
-			
+				$this->template->content = View::instance('v_password_set');
+				$this->template->title   = "Set your New Password";
+				
+				$this->template->content->token = $token;
+				
 				//Display view
 				echo $this->template;
-
-		}else{
-	
-			//Define view paramters
-			$this->template->content = View::instance('v_password_set');
-			$this->template->title   = "Set your New Password";
-			
-			$this->template->content->token = $token;
-			
-			//Display view
-			echo $this->template;
-		}
+				
+			}// End if
 			
 	}// End of funtion
 	
@@ -156,7 +156,6 @@ class password_controller extends base_controller {
 		
 		//Delete password Token
 		DB::instance(DB_NAME)->update("users", $emptyToken, "WHERE user_id = $updateUserId");
-
 					
 		Router::redirect('/users/login/?password-updated');
 				
