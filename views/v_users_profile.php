@@ -1,5 +1,4 @@
 <!-- Start Notices -->
-
 <?php if(isset($_GET['profile-updated'])): ?>
 <div class="alert alert-success fade in">
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -36,7 +35,6 @@
 	<strong><i class="icon-warning-sign"></i> I was unable to update your profile!</strong> Please fill in all the appropriate information.
 </div>
 <?php endif; ?>
-
 <!-- End Notices -->
 
 
