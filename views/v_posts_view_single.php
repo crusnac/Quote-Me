@@ -46,13 +46,13 @@
 	</div>
 	
 	<div class="panel-body">
-		<?php echo $post['body']; ?>
+		<?php echo $post['content']; ?>
 	</div>
 	
 	<ul class="list-group">
-		<li class="list-group-item"><small><strong>Created by:</strong> <a href="/posts/view/users/<?php echo $post['user_id']; ?>"><?php echo $post['first_name']; ?> <?php echo $post['last_name']; ?></a></small></li>
-		<li class="list-group-item"><small><strong>Created on:</strong> <?php echo Time::display($post['created'], 'M D Y'); ?></small></li>
-		<li class="list-group-item"><small><strong>Last Modified on:</strong> <?php echo Time::display($post['modified'], 'M D Y'); ?></small></li>
+		<li class="list-group-item"><small><strong>Created by:</strong> <a href="/posts/user/<?php echo $post['user_id']; ?>"><?php echo $post['first_name']; ?> <?php echo $post['last_name']; ?></a></small></li>
+		<li class="list-group-item"><small><strong>Created on:</strong> <em><?php echo Time::display($post['created'], 'M d, Y @ g:i a T'); ?></em></small></li>
+		<li class="list-group-item"><small><strong>Modified on:</strong> <em><?php echo Time::display($post['modified'], 'M d, Y @ g:i a T'); ?></em></small></li>
 	</ul>
 	<div class="panel-footer"></div>
 </div>
