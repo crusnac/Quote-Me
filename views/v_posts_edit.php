@@ -7,7 +7,7 @@
 		    <input type="text" name="title" class="form-control" value="<?php echo $post['title']; ?>" placeholder="Your Quote Title" autofocus="">
 		
 		    <label><small>Your Quote</small></label>
-		    <textarea class="form-control" rows="4" cols="50" name='body'><?php echo $post['body']; ?></textarea><br />
+		    <textarea class="form-control" rows="4" cols="50" name="content"><?php echo $post['content']; ?></textarea><br />
 		
 		    <button class="btn btn-lg btn-primary btn-block" type="submit">Update My Quote!</button>	
 		</form>
