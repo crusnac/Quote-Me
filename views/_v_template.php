@@ -46,19 +46,40 @@
 				</div>
 				<div class="collapse navbar-collapse pull-right">
 					<ul class="nav navbar-nav">
-						<li><a href="/posts/view/"><span class="badge"> <?php echo $total_number_of_posts; ?> <i class="icon-comment"></i></span> </a></li>
+						<li class="tooltiped" title="Total Number of Quotes">
+							<a href="/posts/stream/"><span class="badge"> <?php echo $total_number_of_posts; ?> <i class="icon-comment"></i></span> 
+							</a>
+						</li>
 						
+						<?php if($user): ?>
+						<li class="tooltiped" title="Number of Followers">
+							<a href="/posts/users/"><span class="badge"> <?php echo $total_number_of_followers; ?> <i class="icon-thumbs-up"></i></span> 
+							</a>
+						</li>
+						
+						
+						
+						<li class="tooltiped" title="You are Following">
+							<a href="/posts/"><span class="badge"> <?php echo $total_number_of_users; ?> <i class="icon-user"></i>
+							</span></a>
+						</li>
+
+						<?php endif; ?> 
 						
 						<!-- Menu for users who are logged in -->
 						<?php if($user): ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $user->first_name; ?> <?php echo $user->last_name; ?> <b class="caret"></b></a>
+
 							<ul class="dropdown-menu">
-								<li><a href="/users/profile">View my Profile</a></li>
-								<li><a href="#">Edit my Profile</a></li>
-								<li><a href="#">View my Quotes</a></li>
+
+								<li><a href="/posts/stream/">View All Quotes</a></li>
 								<li class="divider"></li>
-								<li><a href="/posts/create/"><i class="icon-comment"></i> Submit New Quote</a></li>
+
+								<li><a href="/users/profile">View my Profile</a></li>
+								<li><a href="/posts/user/<?php echo $user->user_id; ?>">View my Quotes</a></li>
+								<li class="divider"></li>
+								<li><a href="/posts/create/"><i class="icon-comment"></i> New Quote</a></li>
 								<li class="divider"></li>
 								<li><a href="/users/logout"><i class="icon-signout"></i> Sign Out</a></li>
 							</ul>
