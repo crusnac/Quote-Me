@@ -29,7 +29,8 @@
 	<h2 class="form-signin-heading">Reset your Password</h2>
     
     <label><small>Enter in your Email Address</small></label>
-    <input type="text" name="email" class="form-control" placeholder="Email address" autofocus=""><br />
+    <input type="text" name="email" class="form-control" placeholder="Email address" autofocus="">
+    	<br />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Reset my Password</button>
 
 </form>
