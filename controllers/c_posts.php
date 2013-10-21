@@ -7,11 +7,88 @@ class posts_controller extends base_controller {
     } 
 
 
+
+	########### //Index POST ###########
+	public function index() {
+	
+		//Check to see if the user is logged in
+		if(!$this->user) {
+			
+				//Setup up the view of all quotes.
+				$this->template->content = View::instance('v_posts_view_stream');
+				$this->template->title   = "View All Posts";
+		
+				//Query the DB for all posts and put into array	        		
+				$view_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts LEFT JOIN users ON posts.created_by = users.user_id GROUP BY posts.id ORDER BY posts.id DESC');
+        
+				$this->template->content->view_posts = $view_posts;
+                                		
+				//Display view
+				echo $this->template;
+		
+		
+		//If the user is logged in, display quotes of only who they are following.	
+		}else{
+			    # Set up the View
+			    $this->template->content = View::instance('v_posts_view_index');
+			    $this->template->title   = "All Posts";
+			
+				$user_id = $this->user->user_id;
+								
+			    # Query
+			    $q = "SELECT
+			    		posts.id AS id,
+			    		posts.title AS title,
+			            posts.content AS content,
+			            posts.created_by AS post_created_by,
+			            posts.created,
+			            users_users.user_id AS follower_id,
+			            users.first_name,
+			            users.last_name
+			        FROM posts
+			        INNER JOIN users_users
+			        INNER JOIN users ON posts.created_by = users.user_id
+			        WHERE users_users.user_id = $user_id
+			        AND posts.created_by = users_users.user_id_followed ORDER BY posts.id DESC";
+			
+			    # Run the query, store the results in the variable $posts
+			    $posts = DB::instance(DB_NAME)->select_rows($q);
+			
+			    # Pass data to the View
+			    $this->template->content->posts = $posts;
+			
+			    # Render the View
+			    echo $this->template;
+			}		    
+
+		}//End of Function
+		
+		
+
+	########### //View All Post Stream ###########
+	public function stream(){
+		
+		//Define view parameters
+				$this->template->content = View::instance('v_posts_view_stream');
+				$this->template->title   = "View All Posts";
+		
+				//Query the DB for all posts and put into array	        		
+				$view_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts LEFT JOIN users ON posts.created_by = users.user_id GROUP BY posts.id ORDER BY posts.id DESC');
+        
+				$this->template->content->view_posts = $view_posts;
+                                		
+				//Display view
+				echo $this->template;	
+		
+		
+		
+	}//End of Function
+	
+	
+	
 	########### //View Posts ###########
-	public function view($view_posts = NULL, $post = NULL, $user = NULL){
+	public function view($view_posts = NULL, $post = NULL){
 	
-	
-		if(isset($post)){
 		
 				//Define view parameters
 				$this->template->content = View::instance('v_posts_view_single');
@@ -26,17 +103,23 @@ class posts_controller extends base_controller {
 				$this->template->content->view_posts = $view_posts;
 								
 				//Display view
-				echo $this->template;		
-
-
-			}elseif(isset($user)){
-			
+				echo $this->template;	
+	
+	}//End of fuction
+	
+	
+	
+	########### //View Posts ###########
+	public function user($user = NULL){
+				
 				//Define view parameters
 				$this->template->content = View::instance('v_posts_view_user');
 				$this->template->title   = "View User Posts";
 				
 				//Query the posts table for a single row
-				$q = "SELECT * FROM posts WHERE created_by = $user";
+				$q = "SELECT * FROM posts LEFT JOIN users ON (posts.created_by = users.user_id) WHERE created_by = $user ORDER BY posts.id DESC";
+
+				//$q = "SELECT * FROM posts WHERE created_by = $user";
 				
 				//Query the DB for all posts that belong to the specified user and put into array	        		
 				$view_posts = DB::instance(DB_NAME)->select_rows($q);
@@ -45,25 +128,9 @@ class posts_controller extends base_controller {
 								
 				//Display view
 				echo $this->template;
-
-			
-			}else{
-			
-				//Define view parameters
-				$this->template->content = View::instance('v_posts_view_all');
-				$this->template->title   = "View All Posts";
-		
-				//Query the DB for all posts and put into array	        		
-				$view_posts = DB::instance(DB_NAME)->select_rows('SELECT * FROM posts LEFT JOIN users ON posts.created_by = users.user_id GROUP BY posts.id ORDER BY posts.id DESC');
-        
-				$this->template->content->view_posts = $view_posts;
-                                		
-				//Display view
-				echo $this->template;				
-			
-		}//End else
+				
+	}//End of Function
 	
-	}//End of fuction
 	
 	
 	########### //Create Posts ###########
@@ -96,11 +163,11 @@ class posts_controller extends base_controller {
 		
 		//Validate that something has been entered.
 		$title = $_POST['title'];
-		$body  = $_POST['body'];
+		$content  = $_POST['content'];
 		
-		if($title == '' || $body == '') {
-			Router::redirect('/posts/view/?empty-post');
-		}
+			if($title == '' || $content == '') {
+				Router::redirect('/posts/create/?empty-post');
+			}
 		
 		
 		// Specify created and modified time that will be posted to the DB.
@@ -108,12 +175,12 @@ class posts_controller extends base_controller {
 		$_POST['modified'] = Time::now();
 		
 		$_POST['created_by'] = $this->user->user_id;
-		
+				
 		// Process from _POST parameters and insert them into the DB. 
 		$user_id = DB::instance(DB_NAME)->insert('posts', $_POST);
 		
 		//Set success message for the view 
-		Router::redirect('/posts/view/?create-successful');
+		Router::redirect('/posts/user/'.$this->user->user_id.'/?create-successful');
 		
 	}// End of Function
 	
@@ -151,7 +218,7 @@ class posts_controller extends base_controller {
 			}else{
 		
 				//Redirect to view posts with an error
-				Router::redirect('/posts/view/?no-permission');
+				Router::redirect('/posts/stream/?no-permission');
 			
 			}// End of Else
 		
@@ -180,9 +247,9 @@ class posts_controller extends base_controller {
 		
 				//Validate that something has been entered.
 				$title = $_POST['title'];
-				$body  = $_POST['body'];
+				$content  = $_POST['content'];
 				
-				if($title == '' || $body == '') {
+				if($title == '' || $content == '') {
 					Router::redirect('/posts/view/posts/'.$post.'/?empty-post');
 				}
 	
@@ -201,7 +268,7 @@ class posts_controller extends base_controller {
 			}else{
 			
 				//Redirect to view posts with an error
-				Router::redirect('/posts/view/?no-permission');
+				Router::redirect('/posts/stream/?no-permission');
 			
 		}// End of else
 		
@@ -232,17 +299,96 @@ class posts_controller extends base_controller {
 				DB::instance(DB_NAME)->delete('posts', "WHERE id = '$post'");
 				
 				//Redirect to view posts with a success message.
-				Router::redirect('/posts/view/?delete-success');
+				Router::redirect('/posts/user/'.$this->user->user_id.'/?delete-success');
 						
 			//The query will be empty if the user did not create the post.		
 			}else{
 			
-				//Redirect to view posts with an error
-				Router::redirect('/posts/view/?delete-error');
+				//Redirect to view posts stream with an error
+				Router::redirect('/posts/stream/?no-permission');
 			
 				}//end of else			
 		
 		}//End of function
+		
+		
+		########### //Display User to Follow ###########
+		public function users() {
+		
+			//Check to make sure user is logged in.
+			if(!$this->user) {
+			
+					Router::redirect('/users/login/');
+				
+			
+				}else{
 	
+				    # Set up the View
+				    $this->template->content = View::instance("v_posts_users");
+				    $this->template->title   = "Users";
+				
+				    # Build the query to get all the users
+				    $q = "SELECT * FROM users";
+				
+				    # Execute the query to get all the users. 
+				    # Store the result array in the variable $users
+				    $users = DB::instance(DB_NAME)->select_rows($q);
+				
+				    # Build the query to figure out what connections does this user already have? 
+				    # I.e. who are they following
+				    $q = "SELECT * 
+				        	FROM users_users
+							WHERE user_id = ".$this->user->user_id;
+				
+				    # Execute this query with the select_array method
+				    # select_array will return our results in an array and use the "users_id_followed" field as the index.
+				    # This will come in handy when we get to the view
+				    # Store our results (an array) in the variable $connections
+				    $connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
+				
+				    # Pass data (users and connections) to the view
+				    $this->template->content->users       = $users;
+				    $this->template->content->connections = $connections;
+				
+				    # Render the view
+				    echo $this->template;
+				    
+				    }//End of Else
+			    
+		}// End of Function
+		
+		
+		########### //Follow Function ###########
+		public function follow($user_id_followed) {
+
+		    # Prepare the data array to be inserted
+		    $data = Array(
+		        "created" => Time::now(),
+		        "user_id" => $this->user->user_id,
+		        "user_id_followed" => $user_id_followed
+		        );
+		
+		    # Do the insert
+		    DB::instance(DB_NAME)->insert('users_users', $data);
+		
+		    # Send them back
+		    Router::redirect("/posts/users");
+		
+		}// End of Function
+		
+		
+		########### //Un-follow Function ###########
+		public function unfollow($user_id_followed) {
+		
+		    # Delete this connection
+		    $where_condition = 'WHERE user_id = '.$this->user->user_id.' AND user_id_followed = '.$user_id_followed;
+		    DB::instance(DB_NAME)->delete('users_users', $where_condition);
+		
+		    # Send them back
+		    Router::redirect("/posts/users");
+		
+		}// End of Function
+		
+				
 	
 } # end of class
