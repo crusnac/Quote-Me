@@ -3,7 +3,7 @@
 	
 		<!-- If User is logged in -->
 		<?php if($user): ?>
-			<h1>Hello,  <?php if($user): ?><?php echo $user->first_name; ?> <?php echo $user->last_name; ?><?php endif; ?>!</h1>
+			<h1>Hello,  <?php if($user): ?><?php echo $user->first_name; ?><?php endif; ?>!</h1>
 			<strong>Welcome to <?=APP_NAME?>.</strong>  <?=APP_NAME?> is a simple micro-blogging platform.
 			<p>
 				<a href="/users/profile/" class="btn btn-primary"><i class="icon-user"></i> My <?=APP_NAME?> Profile</a> 
