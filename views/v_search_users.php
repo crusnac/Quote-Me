@@ -33,6 +33,7 @@
 					<div class="col-md-4">
 						<div class="pull-right">
 						<a href="/posts/user/<?=$user['user_id']?>/" class="btn btn-default  btn-sm">View Quotes </a>
+							
 							<!-- If there exists a connection with this user, show a unfollow link -->
 							<? if(isset($connections[$user['user_id']])): ?>
 							<a class="btn btn-primary btn-sm" style="width: 100px;" href='/posts/unfollow/<?=$user['user_id']?>'><i class="icon-thumbs-down"></i> Unfollow</a>
@@ -40,6 +41,8 @@
 							<? else: ?>
 							<a class="btn btn-success btn-sm" style="width: 100px;" href='/posts/follow/<?=$user['user_id']?>'><i class="icon-thumbs-up"></i> Follow</a>
 							<? endif; ?>
+							
+							
 						</div>
 					</div>
 					

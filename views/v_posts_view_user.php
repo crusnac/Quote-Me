@@ -34,6 +34,7 @@
 				<div class="panel-heading">
 					<!-- Process the Posts array -->
 					<h3><a href="/posts/view/post/<?php echo $post['id']; ?>"><i class="icon-comment"></i> <?php echo $post['title']; ?></a></h3>
+										
 				</div>
 				<div class="panel-body">
 					<?php echo $post['content']; ?>

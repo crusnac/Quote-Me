@@ -115,16 +115,19 @@ class posts_controller extends base_controller {
 				//Define view parameters
 				$this->template->content = View::instance('v_posts_view_user');
 				$this->template->title   = "View User Posts";
+
+
+
 				
 				//Query the posts table for a single row
 				$q = "SELECT * FROM posts LEFT JOIN users ON (posts.created_by = users.user_id) WHERE created_by = $user ORDER BY posts.id DESC";
-
-				//$q = "SELECT * FROM posts WHERE created_by = $user";
 				
 				//Query the DB for all posts that belong to the specified user and put into array	        		
 				$view_posts = DB::instance(DB_NAME)->select_rows($q);
 				
+				
 				$this->template->content->view_posts = $view_posts;
+				
 								
 				//Display view
 				echo $this->template;
@@ -370,7 +373,7 @@ class posts_controller extends base_controller {
 		
 		    # Do the insert
 		    DB::instance(DB_NAME)->insert('users_users', $data);
-		
+		    		
 		    # Send them back
 		    Router::redirect("/posts/users");
 		
