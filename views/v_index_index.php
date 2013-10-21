@@ -29,8 +29,8 @@
 <!-- Start Search -->
 <div class="well">
 	<div class="container">
-		<form method="post" class="form-inline" action="/search/">
-			<input type="q" class="form-control input-lg" placeholder="Search Quotes....">
+		<form method="GET" class="form-inline" action="/search/posts/">
+			<input name="query" class="form-control input-lg" placeholder="Search Quotes....">
 		</form>
 	</div>
 </div>
