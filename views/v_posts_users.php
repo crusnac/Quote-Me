@@ -1,9 +1,18 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<h1>Follow Users</h1>
-		<form role="form">
-			<input class="form-control" placeholder="Can't find a user? Search!">
-		</form>
+		
+		<!-- Start Search -->
+		<div class="well">
+			<div class="container">
+				<form method="GET" class="form-inline" action="/search/users/">
+					<input name="query" class="form-control" placeholder="Search Users....">
+				</form>
+			</div>
+		</div>
+		<!-- End Search -->
+
+		
 		<hr>
 		<table class="table table-hover">
 			<thead>
