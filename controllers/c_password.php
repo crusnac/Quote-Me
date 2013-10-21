@@ -89,7 +89,7 @@ class password_controller extends base_controller {
 		if(!$token || empty($token_q)){
 		
 				//Define view paramters
-				$this->template->content = View::instance('v_password_set-invalid');
+				$this->template->content = View::instance('v_password_set_invalid');
 				$this->template->title   = "Please provide a token";
 			
 				//Display view
