@@ -350,6 +350,9 @@ class posts_controller extends base_controller {
 				    # Set up the View
 				    $this->template->content = View::instance("v_posts_users");
 				    $this->template->title   = "Users";
+				    
+				    $current_user = $this->user->user_id;
+
 				
 				    # Build the query to get all the users
 				    $q = "SELECT * FROM users";
@@ -360,10 +363,11 @@ class posts_controller extends base_controller {
 				
 				    # Build the query to figure out what connections does this user already have? 
 				    # I.e. who are they following
+				    
 				    $q = "SELECT * 
 				        	FROM users_users
-							WHERE user_id = ".$this->user->user_id;
-				
+							WHERE user_id = $current_user ";
+											
 				    # Execute this query with the select_array method
 				    # select_array will return our results in an array and use the "users_id_followed" field as the index.
 				    # This will come in handy when we get to the view
