@@ -114,13 +114,27 @@ class posts_controller extends base_controller {
 	
 	
 	########### //View Posts ###########
-	public function user($user = NULL){
+	public function user($user = NULL, $connections = NULL){
 				
 				//Define view parameters
 				$this->template->content = View::instance('v_posts_view_user');
 				$this->template->title   = "View User Posts";
-
-
+				
+				
+					//Check to make sure user is logged in before tasks are performed.
+					if($this->user) {
+	
+						$current_user = $this->user->user_id;
+		
+						//Query DB to determine if my user is 
+						$connections_q = "SELECT * FROM users_users WHERE user_id = $current_user AND user_id_followed = $user";
+						
+						//Query the DB
+						$connections = DB::instance(DB_NAME)->select_rows($connections_q);
+						
+					    //Pass data to quoery
+					    $this->template->content->connections = $connections;
+				    }
 
 				
 				//Query the posts table for a single row
