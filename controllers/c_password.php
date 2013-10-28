@@ -67,8 +67,17 @@ class password_controller extends base_controller {
 						//Update the with then new token
 						DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
 						
-						///ADD EMAIL new TOKEN Functionality!////
 						
+						///ADD EMAIL new TOKEN Functionality!////
+						$to[]    = Array("name" => APP_NAME, "email" => SYSTEM_EMAIL);
+						$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
+						$subject = APP_NAME." Reset your Password";				
+							
+						$body = View::instance('v_email_p_reset');
+							
+						# Send email
+						Email::send($to, $from, $subject, $body, true, '');
+												
 																
 						//Redirect to user login page after user has been created in the DB
 						Router::redirect('/password/reset/?password-reset');
