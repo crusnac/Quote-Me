@@ -32,12 +32,22 @@ class users_controller extends base_controller {
                  } 
              } 		
 		
+		
+		//Check to make sure the password match
+		if(isset($_POST['password'], $_POST['password_check'])) {
+			if($_POST['password'] != $_POST['password_check']){
+				
+				Router::redirect('/users/signup/?password-match');
+			}
+		}
+		
 		//Do some error checking gainst the email to make sure it's a valid email construct.
 		$email = $_POST['email'];
 		
 		if($email == '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			Router::redirect('/users/signup/?email-error');
 		}
+		
 		
 		
 		//Query the DB for a email / password and set it as a variable.

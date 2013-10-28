@@ -94,6 +94,12 @@
 						<label for="email">Password</label>
 						<input type="password" name="password" class="form-control" placeholder="Enter in your Password">
 					</div>
+
+					<div class="form-group">
+						<label for="email">Confirm Password</label>
+						<input type="password" name="password_check" class="form-control" placeholder="Enter in your Password">
+					</div>
+
 					<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="icon-user"></i> Register</button>
 				</form>
 			</div>
