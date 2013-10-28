@@ -19,6 +19,13 @@
 </div>
 <?php endif; ?>
 
+<?php if(isset($_GET['password-match'])): ?>
+<div class="alert alert-danger fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong><i class="icon-warning-sign"></i> Your password don't match!</strong>  Please try your registration again.
+</div>
+<?php endif; ?>
+
 
 <div class="jumbotron">
 
@@ -37,7 +44,11 @@
     <input type="text" name="email" class="form-control" placeholder="Last Name" >
 
 	<label><small>Your Password</small></label>
-    <input type="password" name="password" class="form-control" placeholder="Your Password"><br />
+    <input type="password" name="password" class="form-control" placeholder="Your Password">
+
+	<label><small>Confirm Your Password</small></label>
+    <input type="password" name="password_check" class="form-control" placeholder="Your Password"><br />
+
 
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 
