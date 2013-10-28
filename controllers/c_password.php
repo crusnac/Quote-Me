@@ -76,11 +76,11 @@ class password_controller extends base_controller {
 						$body = View::instance('v_email_p_reset');
 							
 						# Send email
-						Email::send($to, $from, $subject, $body, true, '');
+						echo Email::send($to, $from, $subject, $body, true, '');
 												
 																
 						//Redirect to user login page after user has been created in the DB
-						Router::redirect('/password/reset/?password-reset');
+						//Router::redirect('/password/reset/?password-reset');
 								
 				}// End if 
 	
