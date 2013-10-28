@@ -38,7 +38,6 @@
 
 <!-- Featured -->
 <div class="panel panel-default">
-	
 	<div class="panel-body">
 		<p>
 			<h4>+1 Features:</h4>
