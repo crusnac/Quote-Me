@@ -1,5 +1,6 @@
 RewriteEngine On
 
+SetEnv PHPRC /home/rusnacne/php.ini
 
 # Allow any files or directories that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
