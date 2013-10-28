@@ -69,9 +69,9 @@ class password_controller extends base_controller {
 						
 						
 						///ADD EMAIL new TOKEN Functionality!////
-						$to[]    = Array("name" => APP_NAME, "email" => SYSTEM_EMAIL);
-						$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
-						$subject = APP_NAME." Reset your Password";				
+						$to[]    = Array("name" => $email, "email" => $email);
+						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
+						$subject = "Quote Me - Password Reset";			
 							
 						$body = View::instance('v_email_p_reset');
 							
