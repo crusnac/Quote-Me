@@ -24,7 +24,7 @@
 			</div>
 			<div class="panel-footer">
 				<strong><small>Created by:</strong> <a href="/posts/user/<?php echo $post['created_by']; ?>">
-					<?php echo $post['first_name']; ?> <?php echo $post['last_name']; ?></a> on <?php echo Time::display($post['created'], 'M d, Y @ g:i a T'); ?></small>
+					<?php echo $post['first_name']; ?> <?php echo $post['last_name']; ?></a></small>
 			</div>
 		</div>
 		<!-- End Post -->
