@@ -1,4 +1,4 @@
 <h1>Reset your password</h1>
-<a href="#"></a>
+<a href="#"><?php APP_URL;?></a>
 
-<?php print_r($token); ?>
+<?php print_r($_POST); ?>
