@@ -71,7 +71,6 @@ class password_controller extends base_controller {
 						$to[]    = Array("name" => $email, "email" => $email);
 						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
 						$subject = "Quote Me - Password Reset $passwordToken";
-						$token = $passwordToken;
 						
 							
 						$body = View::instance('v_email_p_reset');
@@ -79,7 +78,7 @@ class password_controller extends base_controller {
 						$this->template->token = $passwordToken;
 							
 						# Send email
-						Email::send($to, $from, $subject, $body true, '');
+						Email::send($to, $from, $subject, $body, true, '');
 						
 																
 						//Redirect to user login page after user has been created in the DB
