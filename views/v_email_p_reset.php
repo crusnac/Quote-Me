@@ -2,5 +2,5 @@
 <a href="#"><?php APP_URL;?></a>
 
 
-<?php echo $passwordToken; ?>
+<?php print_r($passwordToken); ?>
 <?php print_r($_POST); ?>
