@@ -75,6 +75,7 @@ class password_controller extends base_controller {
 						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
 						$subject = "Quote Me - Password Reset";		
 						
+						$this->template->token = $passwordToken;
 							
 						$body = View::instance('v_email_p_reset');
 							
