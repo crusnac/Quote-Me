@@ -67,7 +67,7 @@ class password_controller extends base_controller {
 						//Update the with then new token
 						DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
 						
-						$this->template->content->passwordToken = $passwordToken;
+						$this->template->body->passwordToken = $passwordToken;
 
 						
 						///ADD EMAIL new TOKEN Functionality!////
@@ -79,7 +79,7 @@ class password_controller extends base_controller {
 						$body = View::instance('v_email_p_reset');
 							
 						# Send email
-						echo Email::send($to, $from, $subject, $body, true, '');
+						Email::send($to, $from, $subject, $body, true, '');
 												
 																
 						//Redirect to user login page after user has been created in the DB
