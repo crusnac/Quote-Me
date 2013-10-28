@@ -41,7 +41,7 @@
 	<div class="panel-body">
 		<p>
 			<h4>+1 Features:</h4>
-			Delete a ost, Update a post, Search posts, Search users, Password reset
+			Delete a post, Update a post, Search posts, Search users, Password reset
 			</ul>
 		</p>
 	</div>
