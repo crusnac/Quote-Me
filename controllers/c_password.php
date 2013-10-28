@@ -58,6 +58,9 @@ class password_controller extends base_controller {
 					//If is doesn't exsit, continue with processing signup.
 					}else{
 					
+						error_reporting(E_ALL);
+						ini_set('display_errors', '1');
+					
 						//Create an encrypted token via their email address and a random string
 						$passwordToken = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
 						
