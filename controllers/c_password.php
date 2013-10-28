@@ -72,15 +72,13 @@ class password_controller extends base_controller {
 						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
 						$subject = "Quote Me - Password Reset $passwordToken";
 						
-							
+						//Setup Body View & pass Token to email body
 						$body = View::instance('v_email_p_reset');
-
-						$this->template->token = $passwordToken;
+						$body->token = $passwordToken;
 							
 						# Send email
 						Email::send($to, $from, $subject, $body, true, '');
 						
-																
 						//Redirect to user login page after user has been created in the DB
 						Router::redirect('/password/reset/?password-reset');
 								

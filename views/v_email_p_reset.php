@@ -2,5 +2,4 @@
 <a href="#"><?php APP_URL;?></a>
 
 
-<?php print_r($passwordToken); ?>
-<?php print_r($_POST); ?>
+The token is: <?=$token>
