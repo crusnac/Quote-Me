@@ -43,8 +43,20 @@
 		<label><small>Your Password</small></label>
 		<input type="password" name="password" class="form-control" placeholder="Password">
 			<br />
+			
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+			</div>
+			
+			<div class="col-md-6">
+				<a href="/password/reset/" class="btn btn-lg btn-default btn-block" type="submit">Reset Your Password</a>
+			</div>
+		
+		</div>
 	
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+		
+
 	</form>
 </div>
 </form>
