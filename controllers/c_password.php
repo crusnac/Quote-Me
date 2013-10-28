@@ -67,7 +67,7 @@ class password_controller extends base_controller {
 						//Update the with then new token
 						DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
 						
-						$this->template->body->passwordToken = $passwordToken;
+						//$this->template->body->passwordToken = $passwordToken;
 
 						
 						///ADD EMAIL new TOKEN Functionality!////
@@ -83,7 +83,7 @@ class password_controller extends base_controller {
 												
 																
 						//Redirect to user login page after user has been created in the DB
-						//Router::redirect('/password/reset/?password-reset');
+						Router::redirect('/password/reset/?password-reset');
 								
 				}// End if 
 	
