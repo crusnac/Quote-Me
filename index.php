@@ -1,3 +1,4 @@
+
 <?php
 
 # The DOC_ROOT and APP_PATH constant have to happen in the actual app
