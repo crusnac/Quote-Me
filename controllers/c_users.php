@@ -66,17 +66,24 @@ class users_controller extends base_controller {
 				}else{
 				
 					// Specify created and modified time that will be posted to the DB.
-					$_POST['created']  = Time::now();
-					$_POST['modified'] = Time::now();
+					
+					$firstname = $_POST['first_name'];
+					$lastname = $_POST['last_name'];
+					$email = $_POST['email'];
+					$created  = Time::now();
+					$modified  = Time::now();
 					
 					//Create an encrypted token via their email address and a random string
-					$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
+					$token = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string()); 
 					
 					//Create a hashed password
-					$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password_check']);
+					$password = sha1(PASSWORD_SALT.$_POST['password']);
+					
+					$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'email' => $email, 'password' => $password, 'token' => $token, 'created' => $created, 'modified' => $modified, );
 					
 					// Process from _POST parameters and insert them into the DB. 
-					$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
+					$user_id = DB::instance(DB_NAME)->insert('users', $data);
+					
 										
 					//Redirect to user login page after user has been created in the DB
 					Router::redirect('/users/login/?user-created');
