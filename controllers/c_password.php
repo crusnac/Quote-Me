@@ -79,7 +79,7 @@ class password_controller extends base_controller {
 						$this->template->token = $passwordToken;
 							
 						# Send email
-						Email::send($to, $from, $subject, $body, $token true, '');
+						Email::send($to, $from, $subject, $body true, '');
 						
 																
 						//Redirect to user login page after user has been created in the DB
