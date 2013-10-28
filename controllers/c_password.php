@@ -25,7 +25,7 @@ class password_controller extends base_controller {
 	}
 	
 	########### //Process Reset ###########
-	public function p_reset(){
+	public function p_reset($token = NULL){
 	
 		//Check to see if the user is logged in.
 			if($this->user) {
@@ -70,7 +70,7 @@ class password_controller extends base_controller {
 						///TOKEN Functionality!////
 						$to[]    = Array("name" => $email, "email" => $email);
 						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
-						$subject = "Quote Me - Password Reset $passwordToken";		
+						$subject = "Quote Me - Password Reset $passwordToken";
 						
 							
 						$body = View::instance('v_email_p_reset');
