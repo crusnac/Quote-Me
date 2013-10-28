@@ -37,8 +37,8 @@
 <!-- End Search -->
 
 <!-- Featured -->
-<div class="well">
-	<div class="container">
+<div class="panel panel-default">
+	<div class="panel-body">
 		<p>
 			<h4>+1 Features:</h4>
 			Delete a ost, Update a post, Search posts, Search users, Password reset
