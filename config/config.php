@@ -34,7 +34,7 @@ A email designated to receive messages from the server. Examples:
 	define('SYSTEM_EMAIL', 'webmaster@rusnac.net'); 
 
 # Default DB name for this app
-//	define('DB_NAME', "p2_rusnac_biz"); 
+	define('DB_NAME', "rusnacne_p2"); 
 
 # Timezone
 	define('TIMEZONE', 'America/Los_Angeles');
