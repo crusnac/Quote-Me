@@ -108,7 +108,7 @@
 	</div>
 	<div id="footer">
 		<div class="container">
-			<p class="text-muted credit"><?=APP_NAME?> is a project application for <a href="http://www.extension.harvard.edu/courses/dynamic-web-applications" target="_blank">Harvard Extension School CSIE-15</a> - 
+			<p class="text-muted credit"><?=APP_NAME?> is a project application for <a href="http://www.extension.harvard.edu/courses/dynamic-web-applications" target="_blank">Harvard CSIE-15</a> - 
 			<strong>Professor:</strong> Susan Buck - <strong>Build by:</strong> Claudiu Rusnac</p>
 		</div>
 	</div>
