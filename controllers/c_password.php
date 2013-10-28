@@ -78,7 +78,7 @@ class password_controller extends base_controller {
 							
 						$body = View::instance('v_email_p_reset');
 
-						$this->template->content->token = $passwordToken;
+						$this->template->token = $passwordToken;
 							
 						# Send email
 						Email::send($to, $from, $subject, $body, true, '');
