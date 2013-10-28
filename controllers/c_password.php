@@ -67,16 +67,16 @@ class password_controller extends base_controller {
 						//Update the with then new token
 						DB::instance(DB_NAME)->update("users", $data, "WHERE email = \"$email\"");
 						
-						///TOKEN Functionality!////
+						//Email TOKEN Functionality
 						$to[]    = Array("name" => $email, "email" => $email);
 						$from    = Array("name" => "Quote Me", "email" => "do-not-reply@rusnac.biz");
-						$subject = "Quote Me - Password Reset $passwordToken";
+						$subject = "Quote Me - Password Reset";
 						
 						//Setup Body View & pass Token to email body
 						$body = View::instance('v_email_p_reset');
 						$body->token = $passwordToken;
 							
-						# Send email
+						//Send Email
 						Email::send($to, $from, $subject, $body, true, '');
 						
 						//Redirect to user login page after user has been created in the DB
