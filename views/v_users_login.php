@@ -46,11 +46,11 @@
 			
 		<div class="row">
 			<div class="col-md-6">
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="icon-lock"></i> Sign In</button>
 			</div>
 			
 			<div class="col-md-6">
-				<a href="/password/reset/" class="btn btn-lg btn-default btn-block" type="submit">Reset Your Password</a>
+				<a href="/password/reset/" class="btn btn-lg btn-default btn-block" type="submit"><i class="icon-refresh"></i> Reset Your Password</a>
 			</div>
 		
 		</div>

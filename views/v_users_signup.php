@@ -50,7 +50,7 @@
     <input type="password" name="password_check" class="form-control" placeholder="Your Password"><br />
 
 
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="icon-user"></i> Register</button>
 
 </form>
 
