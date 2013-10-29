@@ -277,8 +277,8 @@ class posts_controller extends base_controller {
 					Router::redirect('/posts/view/posts/'.$post.'/?empty-post');
 				}
 	
-				//Sanitize all inputs
-				$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+				//Sanitize all inputs - DISABLED
+				//$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 				
 				// Specify created and modified time that will be posted to the DB.
 				$_POST['modified'] = Time::now();
