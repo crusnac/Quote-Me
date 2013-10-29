@@ -79,7 +79,7 @@ class users_controller extends base_controller {
 					//Create a hashed password
 					$password = sha1(PASSWORD_SALT.$_POST['password']);
 					
-					$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'email' => $email, 'password' => $password, 'token' => $token, 'created' => $created, 'modified' => $modified, );
+					$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'email' => $email, 'password' => $password, 'token' => $token, 'created' => $created, 'modified' => $modified);
 					
 					// Process from _POST parameters and insert them into the DB. 
 					$user_id = DB::instance(DB_NAME)->insert('users', $data);
