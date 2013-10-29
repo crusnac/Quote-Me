@@ -185,9 +185,9 @@ class posts_controller extends base_controller {
 		//Sanitize all inputs - DISABLED.
 		//$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
-		//Validate that something has been entered.
-		$title = $_POST['title'];
-		$content  = $_POST['content'];
+		//Validate that something has been entered. Added strip_tags() to remove and HTML or markup
+		$title = strip_tags($_POST['title']);
+		$content  = strip_tags($_POST['content']);
 		
 			if($title == '' || $content == '') {
 				Router::redirect('/posts/create/?empty-post');
@@ -269,9 +269,9 @@ class posts_controller extends base_controller {
 				
 		if(!empty($posts)){
 		
-				//Validate that something has been entered.
-				$title = $_POST['title'];
-				$content  = $_POST['content'];
+				//Validate that something has been entered. Added strip_tags() to remove and HTML or markup
+				$title = strip_tags($_POST['title']);
+				$content  = strip_tags($_POST['content']);
 				
 				if($title == '' || $content == '') {
 					Router::redirect('/posts/view/posts/'.$post.'/?empty-post');
