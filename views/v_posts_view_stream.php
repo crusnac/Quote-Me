@@ -13,7 +13,7 @@
 <h1>What our users are Quoting...</h1>
 
 <?php if($user): ?>
-	<a cclass="btn btn-primary btn-lg btn-block" href="/posts/create/"><i class="icon-comment"></i> New Quote</a>
+	<a class="btn btn-primary btn-lg btn-block" href="/posts/create/"><i class="icon-comment"></i> New Quote</a><br />
 <?php endif; ?> 
 
 
