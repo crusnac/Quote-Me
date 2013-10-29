@@ -15,6 +15,12 @@
 <?php endif; ?>
 
 
+<?php if($user): ?>
+	<a class="btn btn-primary btn-lg btn-block" href="/posts/create/"><i class="icon-comment"></i> New Quote</a><br />
+<?php endif; ?> 
+
+
+
 <?php foreach ($posts as $post): ?>
 
 		<!-- Start Post -->
