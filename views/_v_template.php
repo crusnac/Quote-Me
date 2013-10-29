@@ -17,7 +17,7 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="/inc/js/bootstrap.min.js"></script>
-		<script src="/inc/js/jqBootstrapValidation.js"></script>
+		<script src="/inc/js/jquery.max-lenght.js"></script>
 		<script src="/inc/js/custom.js"></script>
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

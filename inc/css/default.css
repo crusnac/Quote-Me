@@ -44,6 +44,10 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h4 a:hover {
 
 .alert {text-align: center;}
 
+.char-count {
+	font-size: 12px;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
