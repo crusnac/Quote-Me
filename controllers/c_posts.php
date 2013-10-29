@@ -182,8 +182,8 @@ class posts_controller extends base_controller {
 	########### //Process Create Posts ###########
 	public function p_create(){
 		
-		//Sanitize all inputs
-		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+		//Sanitize all inputs - DISABLED.
+		//$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
 		//Validate that something has been entered.
 		$title = $_POST['title'];
