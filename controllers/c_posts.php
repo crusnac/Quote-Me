@@ -186,8 +186,13 @@ class posts_controller extends base_controller {
 		//$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
 		//Validate that something has been entered. Added strip_tags() to remove and HTML or markup
-		$title = strip_tags($_POST['title']);
-		$content  = strip_tags($_POST['content']);
+		$title = $_POST['title'];
+		$title = strip_tags(html_entity_decode(stripslashes(nl2br($title)),ENT_NOQUOTES,"Utf-8"));
+
+		$content  = $_POST['content'];
+		$content = strip_tags(html_entity_decode(stripslashes(nl2br($content)),ENT_NOQUOTES,"Utf-8"));
+		
+		
 		
 			if($title == '' || $content == '') {
 				Router::redirect('/posts/create/?empty-post');
@@ -195,14 +200,18 @@ class posts_controller extends base_controller {
 		
 		
 		// Specify created and modified time that will be posted to the DB.
-		$_POST['created']  = Time::now();
-		$_POST['modified'] = Time::now();
+		$created = $_POST['created']  = Time::now();
+		$modified = $_POST['modified'] = Time::now();
+		$createdby = $_POST['created_by'] = $this->user->user_id;
 		
-		$_POST['created_by'] = $this->user->user_id;
+		$data = Array('title' => $title, 'content' => $title, 'created' => $created, 'modified' => $modified, 'created_by' => $createdby);
 				
 		// Process from _POST parameters and insert them into the DB. 
-		$user_id = DB::instance(DB_NAME)->insert('posts', $_POST);
+		$user_id = DB::instance(DB_NAME)->insert('posts', $data);
 		
+		//echo $title;
+		//echo $content;
+						
 		//Set success message for the view 
 		Router::redirect('/posts/user/'.$this->user->user_id.'/?create-successful');
 		
@@ -268,23 +277,29 @@ class posts_controller extends base_controller {
 		
 				
 		if(!empty($posts)){
-		
-				//Validate that something has been entered. Added strip_tags() to remove and HTML or markup
-				$title = strip_tags($_POST['title']);
-				$content  = strip_tags($_POST['content']);
 				
+				
+				//Added strip_tags() to remove and HTML or markup
+				$title = $_POST['title'];
+				$title = strip_tags(html_entity_decode(stripslashes(nl2br($title)),ENT_NOQUOTES,"Utf-8"));
+
+				$content = $_POST['content'];
+				$content = strip_tags(html_entity_decode(stripslashes(nl2br($content)),ENT_NOQUOTES,"Utf-8"));
+				
+				
+				//If any portion of the POST is empty, redirect.
 				if($title == '' || $content == '') {
 					Router::redirect('/posts/view/posts/'.$post.'/?empty-post');
 				}
-	
-				//Sanitize all inputs - DISABLED
-				//$_POST = DB::instance(DB_NAME)->sanitize($_POST);
-				
+						
 				// Specify created and modified time that will be posted to the DB.
-				$_POST['modified'] = Time::now();
+				$modified = $_POST['modified'] = Time::now();
+
+				//Data to update in the DB into an ARRAY
+				$data = Array('title' => $title, 'content' => $title, 'modified' => $modified);
 				
 				// Process from _POST parameters and insert them into the DB. 
-				DB::instance(DB_NAME)->update("posts", $_POST, "WHERE id = $post");
+				DB::instance(DB_NAME)->update("posts", $data, "WHERE id = $post");
 				
 				//Set success message for the view 
 				Router::redirect('/posts/view/posts/'.$post.'/?post-updated');
