@@ -204,7 +204,7 @@ class posts_controller extends base_controller {
 		$modified = $_POST['modified'] = Time::now();
 		$createdby = $_POST['created_by'] = $this->user->user_id;
 		
-		$data = Array('title' => $title, 'content' => $title, 'created' => $created, 'modified' => $modified, 'created_by' => $createdby);
+		$data = Array('title' => $title, 'content' => $content, 'created' => $created, 'modified' => $modified, 'created_by' => $createdby);
 				
 		// Process from _POST parameters and insert them into the DB. 
 		$user_id = DB::instance(DB_NAME)->insert('posts', $data);
@@ -296,7 +296,7 @@ class posts_controller extends base_controller {
 				$modified = $_POST['modified'] = Time::now();
 
 				//Data to update in the DB into an ARRAY
-				$data = Array('title' => $title, 'content' => $title, 'modified' => $modified);
+				$data = Array('title' => $title, 'content' => $content, 'modified' => $modified);
 				
 				// Process from _POST parameters and insert them into the DB. 
 				DB::instance(DB_NAME)->update("posts", $data, "WHERE id = $post");
