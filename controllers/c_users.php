@@ -68,7 +68,11 @@ class users_controller extends base_controller {
 					// Specify created and modified time that will be posted to the DB.
 					
 					$firstname = $_POST['first_name'];
+					$firstname = strip_tags(htmlentities(stripslashes(nl2br($firstname)),ENT_NOQUOTES,"Utf-8"));
+					
 					$lastname = $_POST['last_name'];
+					$lastname = strip_tags(htmlentities(stripslashes(nl2br($lastname)),ENT_NOQUOTES,"Utf-8"));
+
 					$email = $_POST['email'];
 					$created  = Time::now();
 					$modified  = Time::now();
