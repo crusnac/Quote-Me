@@ -218,12 +218,20 @@ class users_controller extends base_controller {
 			$q = "SELECT email FROM users WHERE user_id = $currentUser";
 			
 			$_POST['email'] = DB::instance(DB_NAME)->select_field($q);
+			
+			$firstname = $_POST['first_name'];
+			$firstname = strip_tags(htmlentities(stripslashes(nl2br($firstname)),ENT_NOQUOTES,"Utf-8"));
+					
+			$lastname = $_POST['last_name'];
+			$lastname = strip_tags(htmlentities(stripslashes(nl2br($lastname)),ENT_NOQUOTES,"Utf-8"));
 								
 			// Specify created and modified time that will be posted to the DB.
 			$_POST['modified'] = Time::now();
-						
+			
+			$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'modified' => $modified);
+
 			// Process from _POST parameters and updated them into the DB. 
-			$user_id = DB::instance(DB_NAME)->update('users', $_POST, "WHERE user_id = $currentUser");
+			$user_id = DB::instance(DB_NAME)->update('users', $data, "WHERE user_id = $currentUser");
 								
 			//Redirect to user login page after user has been created in the DB
 			Router::redirect('/users/profile/?profile-updated');
