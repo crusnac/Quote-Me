@@ -65,14 +65,15 @@ class users_controller extends base_controller {
 				//If is doesn't exsit, continue with processing signup.
 				}else{
 				
-					// Specify created and modified time that will be posted to the DB.
-					
+					//Add XSS and html tag filtering
 					$firstname = $_POST['first_name'];
 					$firstname = strip_tags(htmlentities(stripslashes(nl2br($firstname)),ENT_NOQUOTES,"Utf-8"));
 					
+					//Add XSS and html tag filtering
 					$lastname = $_POST['last_name'];
 					$lastname = strip_tags(htmlentities(stripslashes(nl2br($lastname)),ENT_NOQUOTES,"Utf-8"));
 
+					// Specify created and modified time that will be posted to the DB.
 					$email = $_POST['email'];
 					$created  = Time::now();
 					$modified  = Time::now();
@@ -207,31 +208,34 @@ class users_controller extends base_controller {
 			
 			//Check to make sure all form values are filled in.
 			foreach($_POST as $key => $value){ 
-			if((!isSet($value)) || (!$value) || ($value = "")) { 
-				Router::redirect('/users/profile/?partial-form');
-				
-				} 
+				if((!isSet($value)) || (!$value) || ($value = "")) { 
+					Router::redirect('/users/profile/?partial-form');
+					
+					} 
 			}//End for Each
 			 									
-			$currentUser = $this->user->user_id;
-
-			$q = "SELECT email FROM users WHERE user_id = $currentUser";
-			
-			$_POST['email'] = DB::instance(DB_NAME)->select_field($q);
-			
-			$firstname = $_POST['first_name'];
-			$firstname = strip_tags(htmlentities(stripslashes(nl2br($firstname)),ENT_NOQUOTES,"Utf-8"));
-					
-			$lastname = $_POST['last_name'];
-			$lastname = strip_tags(htmlentities(stripslashes(nl2br($lastname)),ENT_NOQUOTES,"Utf-8"));
-								
-			// Specify created and modified time that will be posted to the DB.
-			$_POST['modified'] = Time::now();
-			
-			$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'modified' => $modified);
-
-			// Process from _POST parameters and updated them into the DB. 
-			$user_id = DB::instance(DB_NAME)->update('users', $data, "WHERE user_id = $currentUser");
+				$currentUser = $this->user->user_id;
+	
+				$q = "SELECT email FROM users WHERE user_id = $currentUser";
+				
+				$_POST['email'] = DB::instance(DB_NAME)->select_field($q);
+				
+				
+				//Add XSS and html tag filtering
+				$firstname = $_POST['first_name'];
+				$firstname = strip_tags(htmlentities(stripslashes(nl2br($firstname)),ENT_NOQUOTES,"Utf-8"));
+				
+				//Add XSS and html tag filtering
+				$lastname = $_POST['last_name'];
+				$lastname = strip_tags(htmlentities(stripslashes(nl2br($lastname)),ENT_NOQUOTES,"Utf-8"));
+									
+				// Specify created and modified time that will be posted to the DB.
+				$_POST['modified'] = Time::now();
+				
+				$data = Array('first_name' => $firstname, 'last_name' => $lastname, 'modified' => $modified);
+	
+				// Process from _POST parameters and updated them into the DB. 
+				$user_id = DB::instance(DB_NAME)->update('users', $data, "WHERE user_id = $currentUser");
 								
 			//Redirect to user login page after user has been created in the DB
 			Router::redirect('/users/profile/?profile-updated');
