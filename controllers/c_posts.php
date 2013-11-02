@@ -187,10 +187,10 @@ class posts_controller extends base_controller {
 		
 		//Validate that something has been entered. Added strip_tags() to remove and HTML or markup
 		$title = $_POST['title'];
-		$title = strip_tags(html_entity_decode(stripslashes(nl2br($title)),ENT_NOQUOTES,"Utf-8"));
+		$title = strip_tags(htmlentities(stripslashes(nl2br($title)),ENT_NOQUOTES,"Utf-8"));
 
 		$content  = $_POST['content'];
-		$content = strip_tags(html_entity_decode(stripslashes(nl2br($content)),ENT_NOQUOTES,"Utf-8"));
+		$content = strip_tags(htmlentities(stripslashes(nl2br($content)),ENT_NOQUOTES,"Utf-8"));
 		
 		
 		
